@@ -19,7 +19,7 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-4" v-for="album in albumData">
+                <div class="col-4" v-for="(album,index) in albumData">
 
                     <div class="card mt-3" style="width: 18rem;">
                         <img :src="album.poster" class="card-img-top" :alt="album.title">
@@ -31,6 +31,7 @@
                             <li class="list-group-item">autore: {{ album.author }}</li>
                             <li class="list-group-item">genere: {{ album.genre }}</li>
                         </ul>
+                        <button type="button" class="btn btn-success" @click="addToFav(), curIndex = index">aggiungi ai preferiti</button>
                     </div>
                 </div>
             </div>
