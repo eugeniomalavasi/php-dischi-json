@@ -5,28 +5,30 @@ createApp({
         return {
             message: "hello",
             albumData: [],
-            curIndex : 0,
-            prefAlbum: []
+
         }
     }, methods: {
-        addToFav () {
+        addToFav(index) {
+            const data = {
+                action: "pref_flag",
+                index: index,
+            };
             axios
-            .post("http://localhost/boolean/php-dischi-json/server.php")
-            .then ((resp) => {
-
-                let favAlbum = resp.data.results[this.curIndex].preferred;
-                favAlbum = !favAlbum;
-                console.log(favAlbum);
-                console.log(this.curIndex);
-
-            })
+                .post("http://localhost/boolean/php-dischi-json/server.php", data, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((resp) => {
+                    this.albumData = resp.data.results
+                })
         },
     }, created() {
         axios
-        .get("http://localhost/boolean/php-dischi-json/server.php")
-        .then((resp) =>{
-            // console.log(resp);
-            this.albumData = resp.data.results;
-        })
+            .get("http://localhost/boolean/php-dischi-json/server.php")
+            .then((resp) => {
+                // console.log(resp);
+                this.albumData = resp.data.results;
+            })
     },
 }).mount('#app');

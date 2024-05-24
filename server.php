@@ -5,21 +5,15 @@ $data_string = file_get_contents("dischi.json");
 
 // trasformo string in array
 $data = json_decode($data_string, true);
-// var_dump($data);
-if (isset($_POST["pref_update"])) {
-$liked_album = $_POST["pref_update"];
 
-$album_data = [
-    "title" => $liked_album["title"],
-    "author" => $liked_album["author"],
-    "year" => $liked_album["year"],
-    "poster" => $liked_album["poster"],
-    "genre" => $liked_album["genre"],
-    "preferred" => false,
-];
+// CHANGE PREF
+if (isset($_POST["action"]) && $_POST["action"] === "pref_flag") {
 
-$data = $album_data;
+$cur_index = $_POST["index"];
 
+$data[$cur_index]["preferred"] = !$data[$cur_index]["preferred"];
+
+file_put_contents("dischi.json", json_encode($data));
 }
 
 $response_data = [

@@ -1,0 +1,11 @@
+.pref-icon {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+    font-size: 1.3rem;
+}
+
+.ms-card {
+    position: relative;
+    color: white;
+}
